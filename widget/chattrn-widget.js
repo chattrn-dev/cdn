@@ -34238,15 +34238,6 @@ const injectWidget = (options) => {
   widgetContainer.id = "chattrn-widget-container";
   document.body.appendChild(widgetContainer);
   widgetInjected = true;
-  const observer = new MutationObserver(() => {
-    if (!document.body.contains(widgetContainer)) {
-      document.body.appendChild(widgetContainer);
-    }
-  });
-  observer.observe(document.documentElement, {
-    childList: true,
-    subtree: true
-  });
   clientExports.createRoot(widgetContainer).render(/* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.StrictMode, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(App, { ...options }) }));
 };
 const autoInject = () => {
