@@ -34231,14 +34231,26 @@ const App = (t0) => {
   }
   return t10;
 };
+let widgetInjected = false;
 const injectWidget = (options) => {
-  if (document.getElementById("chattrn-widget-container")) return;
+  if (widgetInjected) return;
   const widgetContainer = document.createElement("div");
   widgetContainer.id = "chattrn-widget-container";
   document.body.appendChild(widgetContainer);
+  widgetInjected = true;
+  const observer = new MutationObserver(() => {
+    if (!document.body.contains(widgetContainer)) {
+      document.body.appendChild(widgetContainer);
+    }
+  });
+  observer.observe(document.documentElement, {
+    childList: true,
+    subtree: true
+  });
   clientExports.createRoot(widgetContainer).render(/* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.StrictMode, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(App, { ...options }) }));
 };
 const autoInject = () => {
+  if (widgetInjected) return;
   const script = document.querySelector("script[data-widget-inject]");
   if (script) {
     const options = {
@@ -34251,5 +34263,9 @@ const autoInject = () => {
   }
 };
 if (typeof document !== "undefined") {
-  window.addEventListener("load", autoInject);
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", autoInject);
+  } else {
+    autoInject();
+  }
 }
