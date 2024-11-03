@@ -34250,9 +34250,5 @@ const autoInject = () => {
   }
 };
 if (typeof document !== "undefined") {
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", autoInject);
-  } else {
-    autoInject();
-  }
+  document.addEventListener("DOMContentLoaded", autoInject);
 }
