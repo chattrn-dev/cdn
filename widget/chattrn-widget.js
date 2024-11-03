@@ -34232,6 +34232,7 @@ const App = (t0) => {
   return t10;
 };
 const injectWidget = (options) => {
+  if (document.getElementById("chattrn-widget-container")) return;
   const widgetContainer = document.createElement("div");
   widgetContainer.id = "chattrn-widget-container";
   document.body.appendChild(widgetContainer);
@@ -34250,5 +34251,5 @@ const autoInject = () => {
   }
 };
 if (typeof document !== "undefined") {
-  document.addEventListener("DOMContentLoaded", autoInject);
+  window.addEventListener("load", autoInject);
 }
